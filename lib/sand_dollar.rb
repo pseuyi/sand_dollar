@@ -9,6 +9,10 @@ get '/test' do
   'hello sand dollar'
 end
 
+post '/connect' do
+  "connected! \npeers: #{params[:peers]} blockchain: #{params[:blockchain]}"
+end
+
 post '/send' do
 
 end
