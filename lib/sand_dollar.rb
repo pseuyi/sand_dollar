@@ -7,3 +7,7 @@ end
 post '/send' do
 
 end
+
+not_found do
+  'cannot find ..gurgle..what you are looking for..gurgle'
+end
