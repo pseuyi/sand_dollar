@@ -1,4 +1,5 @@
 require 'sinatra'
+require 'colorize'
 
 # configuration
 configure do
@@ -7,6 +8,10 @@ end
 
 get '/test' do
   'hello sand dollar'
+end
+
+post '/connect' do
+  "connected! \npeers: #{params[:peers]} blockchain: #{params[:blockchain]}".blue.on_green.blink
 end
 
 post '/send' do
