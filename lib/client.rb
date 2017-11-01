@@ -4,7 +4,11 @@ class Client
   URL = 'http://localhost'
 
   def self.connect(port, peers, blockchain)
-    Faraday.post("#{URL}:#{port}/connect", peers: peers, blockchain: blockchain).body
+    begin
+      Faraday.post("#{URL}:#{port}/connect", peers: peers, blockchain: blockchain).body
+    rescue Faraday::ConnectionFailed => e
+      puts "Error: #{e.message}"
+    end
   end
 
   def self.send(port, to, amount)
