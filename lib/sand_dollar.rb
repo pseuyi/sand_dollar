@@ -1,5 +1,10 @@
 require 'sinatra'
 
+# configuration
+configure do
+  set :port, 1234
+end
+
 get '/test' do
   'hello sand dollar'
 end
