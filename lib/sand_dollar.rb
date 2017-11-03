@@ -1,11 +1,16 @@
 require 'sinatra'
 require 'colorize'
+require_relative 'utils'
 
 # configuration
 configure do
   set :port, 1234
   puts "sand dollar server up and running on port #{settings.port}".blue.on_green.blink
 end
+
+# primitive logging
+count = 0
+set_interval(3) { puts "updated #{count} time(s)"; count +=1 }
 
 get '/test' do
   puts 'hello sand dollar'
