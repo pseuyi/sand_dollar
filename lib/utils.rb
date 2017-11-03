@@ -1,7 +1,7 @@
-def set_interval(seconds)
+def set_interval(interval)
   Thread.new do
     loop do
-      sleep seconds
+      sleep interval
       yield
     end
   end
