@@ -17,7 +17,7 @@ get '/test' do
 end
 
 post '/connect' do
-  puts "connected! \npeers: #{params[:peers]} blockchain: #{params[:blockchain]}".red
+  puts "#{params[:name]} connected! \npeers: #{params[:peers]} blockchain: #{params[:blockchain]}".red
 end
 
 post '/send' do

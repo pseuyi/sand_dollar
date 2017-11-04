@@ -6,9 +6,9 @@ puts Faraday::default_adapter
 class Client
   URL = 'http://localhost'
 
-  def self.connect(port, peers, blockchain)
+  def self.connect(port, name, peers, blockchain)
     begin
-      Faraday.post("#{URL}:#{port}/connect", peers: peers, blockchain: blockchain)
+      Faraday.post("#{URL}:#{port}/connect", name: name, peers: peers, blockchain: blockchain).body
     rescue Faraday::ConnectionFailed => e
       puts "Error: #{e.message}"
     end
@@ -19,4 +19,4 @@ class Client
   end
 end
 
-Client.connect('1234', 'a', 'b')
+Client.connect('1234', 'freda', 'a', 'b')
