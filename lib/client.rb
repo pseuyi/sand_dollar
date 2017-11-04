@@ -1,4 +1,5 @@
 require 'faraday'
+require 'colorize'
 
 puts Faraday::VERSION
 puts Faraday::default_adapter
@@ -10,7 +11,7 @@ class Client
     begin
       Faraday.post("#{URL}:#{port}/connect", name: name, peers: peers, blockchain: blockchain).body
     rescue Faraday::ConnectionFailed => e
-      puts "Error: #{e.message}"
+      puts "Error: #{e.message}".red
     end
   end
 
