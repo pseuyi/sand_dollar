@@ -12,6 +12,6 @@ class Blockchain
   end
 
   def valid?
-
+    @blocks.all(&:valid?)
   end
 end
