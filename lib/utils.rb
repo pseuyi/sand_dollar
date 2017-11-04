@@ -15,7 +15,6 @@ def update_peers(request_peers, peers, port)
 end
 
 def update_blockchain(request_blockchain, blockchain)
-  puts "request_blockchain : #{request_blockchain.is_a?(Blockchain)}"
   return blockchain unless request_blockchain.valid?
 
   if blockchain.nil? ||

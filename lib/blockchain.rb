@@ -14,7 +14,6 @@ class Blockchain
   end
 
   def valid?
-    puts "validating bc #{block}"
     @blocks.all? { |b| b.valid? }
   end
 end
