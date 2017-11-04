@@ -1,6 +1,6 @@
 require_relative 'block'
 
-class BlockChain
+class Blockchain
 
   def initialize(pub_key, priv_key)
     @blocks = []
