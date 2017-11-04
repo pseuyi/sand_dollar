@@ -34,6 +34,10 @@ class Block
     ].join("\n")
   end
 
+  def valid?
+    !!own_hash
+  end
+
   private
 
     def hash(content)
