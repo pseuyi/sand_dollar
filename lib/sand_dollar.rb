@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'colorize'
+require 'yaml'
 require_relative 'utils'
 require_relative 'pki'
 require_relative 'blockchain'
@@ -39,9 +40,9 @@ set_interval(3) {
 
   $PEERS.each do |peer|
     response = Client.connect(peer, $PEERS, $BLOCKCHAIN)
-    params = JSON.parse(response)
+    params = YAML.load(response)
     request_peers = params[:peers]
-    request_blockchain = params[:request_blockchain]
+    request_blockchain = params[:blockchain]
 
     update_peers(request_peers, $PEERS, $PORT)
     $BLOCKCHAIN = update_blockchain(request_blockchain, $BLOCKCHAIN)
@@ -66,7 +67,7 @@ post '/connect' do
   # update_peers(request_peers)
   # update_blockchain(request_blockchain)
 
-  JSON.dump( peers: $PEERS, blockchain: $BLOCKCHAIN )
+  YAML.dump( peers: $PEERS, blockchain: $BLOCKCHAIN )
 end
 
 post '/send' do

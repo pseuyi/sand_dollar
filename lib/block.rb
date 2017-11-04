@@ -35,6 +35,7 @@ class Block
   end
 
   def valid?
+    puts "validating block #{own_hash}"
     !!own_hash
   end
 
