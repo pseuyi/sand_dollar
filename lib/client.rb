@@ -11,7 +11,7 @@ class Client
     begin
       Faraday.post("#{URL}:#{port}/connect", name: name, peers: peers, blockchain: blockchain).body
     rescue Faraday::ConnectionFailed => e
-      puts "Error: #{e.message}".red
+      puts "error: #{e.message}".red
     end
   end
 
