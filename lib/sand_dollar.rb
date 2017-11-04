@@ -1,8 +1,12 @@
 require 'sinatra'
 require 'colorize'
 require_relative 'utils'
+require_relative 'pki'
 
-PORT, PEER_PORT, *REST = ARGV
+# port args
+PORT, NETWORK, *REST = ARGV
+PEERS = [PORT]
+PEERS << NETWORK unless NETWORK.nil?
 
 # configuration
 configure :development do
@@ -13,7 +17,13 @@ end
 
 # primitive logging
 count = 0
-set_interval(3) { puts "updated #{count} time(s)"; count +=1 }
+set_interval(3) {
+  puts "update ##{count}"
+  PEERS.each do |peer|
+    puts "connected to #{peer.to_s.blue}" unless peer == PORT
+  end
+  count +=1
+}
 
 get '/test' do
   puts 'hello sand dollar'
