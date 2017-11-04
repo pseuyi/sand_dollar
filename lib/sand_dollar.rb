@@ -2,11 +2,14 @@ require 'sinatra'
 require 'colorize'
 require_relative 'utils'
 require_relative 'pki'
+require_relative 'blockchain'
 
 # port args
-PORT, NETWORK, *REST = ARGV
-PEERS = [PORT]
-PEERS << NETWORK unless NETWORK.nil?
+PORT, PEER_PORT, *REST = ARGV
+PEERS = []
+
+# global blockchain
+$BLOCKCHAIN = nil
 
 # configuration
 configure :development do
@@ -15,11 +18,28 @@ configure :development do
   puts "sand dollar server up and running on port #{settings.port}".blue.on_green.blink
 end
 
+# generate my public and private key
+pkey = PKI.generate_key
+my_pub_key = pkey.public_key.to_s
+my_priv_key = pkey.to_s
+
+if PEERS.empty?
+  $BLOCKCHAIN = Blockchain.new(my_pub_key, my_priv_key)
+else
+  PEERS << PEER_PORT
+end
+
 # primitive logging
 count = 0
 set_interval(3) {
+
+  # send my blockchain to peers
+
+
   puts "update ##{count}"
   PEERS.each do |peer|
+    response = Client.connect(peer, PEERS, $BLOCKCHAIN)
+    #validate(JSON.parse(reponse))
     puts "connected to #{peer.to_s.blue}" unless peer == PORT
   end
   count += 1
@@ -30,6 +50,8 @@ get '/test' do
 end
 
 post '/connect' do
+  #PEERS << params[:peers]
+  # send my blockchain
   puts "#{params[:name]} connected! \npeers: #{params[:peers]} blockchain: #{params[:blockchain]}".green
 end
 
