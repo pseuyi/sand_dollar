@@ -24,4 +24,4 @@ class Client
   end
 end
 
-Client.connect('1234', 'a', 'b')
+# Client.connect('1234', 'a', 'b')
