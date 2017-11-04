@@ -17,7 +17,7 @@ get '/test' do
 end
 
 post '/connect' do
-  "connected! \npeers: #{params[:peers]} blockchain: #{params[:blockchain]}".red
+  puts "connected! \npeers: #{params[:peers]} blockchain: #{params[:blockchain]}".red
 end
 
 post '/send' do
@@ -25,5 +25,5 @@ post '/send' do
 end
 
 not_found do
-  'cannot find ..gurgle..what you are looking for..gurgle'
+  puts 'cannot find ..gurgle..what you are looking for..gurgle'
 end
