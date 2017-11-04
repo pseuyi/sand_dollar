@@ -22,7 +22,7 @@ set_interval(3) {
   PEERS.each do |peer|
     puts "connected to #{peer.to_s.blue}" unless peer == PORT
   end
-  count +=1
+  count += 1
 }
 
 get '/test' do
