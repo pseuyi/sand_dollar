@@ -7,4 +7,11 @@ class Blockchain
     @blocks << Block.create_genesis_block(pub_key, priv_key)
   end
 
+  def length
+    @blocks.length
+  end
+
+  def valid?
+
+  end
 end
