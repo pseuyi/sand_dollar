@@ -1,4 +1,5 @@
 require 'digest'
+require_relative 'pki'
 
 class Transaction
 
@@ -6,7 +7,7 @@ class Transaction
 
   def initialize(from, to, amount, priv_key)
     @from, @to, @amount = from, to, amount
-    #@signature = priv_key
+    @signature = PKI.sign(message, priv_key)
   end
 
   def is_valid_signature?
