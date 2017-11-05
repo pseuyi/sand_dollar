@@ -33,11 +33,9 @@ end
 count = 0
 set_interval(3) {
 
-  # send my blockchain to peers
-
-
   puts "update ##{count}"
-
+  
+  # send my blockchain to peers
   $PEERS.each do |peer|
     response = Client.connect(peer, $PEERS, $BLOCKCHAIN)
     params = YAML.load(response)

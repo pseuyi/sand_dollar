@@ -25,13 +25,3 @@ def update_blockchain(request_blockchain, blockchain)
 
   blockchain
 end
-
-
-
-# def update_blockchain_from_peers(peers, blockchain)
-#   peers.each do |peer|
-#     response = Client.connect(peer, peers, blockchain)
-#     response = JSON.parse(response)
-#     puts "connected to #{peer.to_s.blue}" unless peer == PORT
-#   end
-# end
