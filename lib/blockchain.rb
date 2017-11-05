@@ -16,4 +16,9 @@ class Blockchain
   def valid?
     @blocks.all? { |b| b.valid? }
   end
+
+  def add_block
+    
+  end
+
 end
