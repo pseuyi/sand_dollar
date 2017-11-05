@@ -18,7 +18,7 @@ class Transaction
   def is_signed_correctly?
     return true if is_genesis_txn?
     #check signature
-    PKI.valid_signature(message, @signature, from)
+    PKI.is_valid_signature?(message, @signature, from)
   end
 
   def is_genesis_txn?
