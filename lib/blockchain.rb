@@ -49,6 +49,7 @@ class Blockchain
   private
 
   def balances_valid?
+    # if a balance goes negative, the block is not valid
     !calc_balances.any? { |_, value| value < 0 }
   end
 end
