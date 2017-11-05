@@ -22,5 +22,4 @@ class PKI
     pub_key = OpenSSL::Pkey::RSA.new(from)
     pub_key.public_decrypt(Base64.decode64(signature))
   end
-
 end

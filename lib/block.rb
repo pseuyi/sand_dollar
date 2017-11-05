@@ -4,7 +4,7 @@ require_relative 'transaction'
 
 class Block
 
-  attr_reader :own_hash
+  attr_reader :own_hash, :txn
 
   NUM_ZEROS = 4
 
@@ -28,15 +28,14 @@ class Block
   def to_s
     puts [
       "previous hash: ".ljust(20).blue + @prev_block_hash.to_s.red,
-      "message: ".ljust(20).blue + @txn.to_s.red,
+      "message: ".ljust(20).blue + txn.to_s.red,
       "nonce: ".ljust(20).blue + @nonce.red,
-      "own hash: ".ljust(20).blue + @own_hash.red
+      "own hash: ".ljust(20).blue + own_hash.red
     ].join("\n")
   end
 
   def valid?
-    puts "validating block #{own_hash}"
-    !!own_hash
+    !!own_hash && txn.is_signed_correctly?
   end
 
   private
