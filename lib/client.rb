@@ -27,5 +27,3 @@ class Client
     Faraday.get("#{URL}:#{port}/key").body
   end
 end
-
-# Client.connect('1234', 'a', 'b')
