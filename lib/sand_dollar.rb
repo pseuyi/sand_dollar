@@ -72,10 +72,15 @@ post '/connect' do
 end
 
 post '/send' do
-  peer_port = params[:peer_port]
-  peer_pub_key = Client.get_key(peer_port)
-  new_transaction = Transaction.new(PUB_KEY, peer_pub_key, amount, PRIV_KEY)
+  peer_pub_key = Client.get_key(params[:peer_port])
+  new_transaction = Transaction.new(
+    PUB_KEY,
+    peer_pub_key,
+    params[:amount],
+    PRIV_KEY
+  )
   $BLOCKCHAIN.add_block(new_transaction)
+  puts "added new block!"
 end
 
 get '/key' do
