@@ -75,6 +75,7 @@ post '/send' do
   peer_port = params[:peer_port]
   peer_pub_key = Client.get_key(peer_port)
   new_transaction = Transaction.new(PUB_KEY, peer_pub_key, amount, PRIV_KEY)
+  $BLOCKCHAIN.add_block(new_transaction)
 end
 
 get '/key' do
