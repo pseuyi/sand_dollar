@@ -45,5 +45,4 @@ class Blockchain
       puts '*' * 30
     end
   end
-
 end
