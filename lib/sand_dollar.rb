@@ -21,6 +21,8 @@ PRIV_KEY = PKEY.to_s
 
 # configuration
 configure :development do
+  # TODO: set these to env variables
+  set :bind, '10.0.1.13'
   set :port, $PORT
   set :show_exceptions, :after_handler
   puts "sand dollar server up and running on port #{settings.port}".blue.on_green.blink

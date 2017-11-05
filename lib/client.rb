@@ -5,7 +5,7 @@ puts Faraday::VERSION
 puts Faraday::default_adapter
 
 class Client
-  URL = 'http://localhost'
+  URL = '10.0.1.13'
 
   def self.connect(port, peers, blockchain)
     begin
