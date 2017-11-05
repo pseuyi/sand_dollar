@@ -19,13 +19,11 @@ class Client
     end
   end
 
-  def self.send(to, from, amount)
-    Faraday.post("#{URL}:#{to}/send", from: from, amount: amount).body
+  def self.send(port, peer_port, amount)
+    Faraday.post("#{URL}:#{port}/send", peer_port: peer_port, amount: amount).body
   end
 
   def self.get_key(port)
     Faraday.get("#{URL}:#{port}/key").body
   end
 end
-
-# Client.connect('1234', 'a', 'b')

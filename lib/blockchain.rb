@@ -17,8 +17,8 @@ class Blockchain
     @blocks.all? { |b| b.valid? }
   end
 
-  def add_block(prev_block, txn)
-
+  def add_block(txn)
+    blocks << Block.new(blocks.last, txn)
   end
 
 end

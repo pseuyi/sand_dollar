@@ -8,7 +8,7 @@ class PKI
   end
 
   def self.sign(message, priv_key)
-    priv_key = OpenSSL::Pkey::RSA.new(priv_key)
+    priv_key = OpenSSL::PKey::RSA.new(priv_key)
     encrypted_msg = priv_key.private_encrypt(message)
     Base64.encode64(encrypted_msg)
   end
@@ -19,7 +19,7 @@ class PKI
   end
 
   def self.decrypted_signature(signature, from)
-    pub_key = OpenSSL::Pkey::RSA.new(from)
+    pub_key = OpenSSL::PKey::RSA.new(from)
     pub_key.public_decrypt(Base64.decode64(signature))
   end
 end
