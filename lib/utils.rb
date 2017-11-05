@@ -16,6 +16,6 @@ end
 
 def update_blockchain(request_blockchain, blockchain)
   return blockchain unless request_blockchain.valid?
-  return request_blockchain unless blockchain.valid?
+  return request_blockchain if blockchain.nil? || !blockchain.valid?
   request_blockchain.length > blockchain.length ? request_blockchain : blockchain
 end
