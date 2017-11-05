@@ -7,7 +7,7 @@ require_relative 'blockchain'
 
 # port args
 $PORT, $PEER_PORT, *REST = ARGV
-$PEERS = []
+$PEERS = [$PORT]
 $PEERS << $PEER_PORT if $PEER_PORT
 
 # global blockchain
@@ -28,26 +28,24 @@ configure :development do
 end
 
 
-if $PEERS.empty?
-  $BLOCKCHAIN = Blockchain.new(PUB_KEY, PRIV_KEY)
-  # add first block to blockchain
-
-end
+# genesis blockchain
+$BLOCKCHAIN = Blockchain.new(PUB_KEY, PRIV_KEY) if $PEERS.length <= 1
 
 # primitive logging
 count = 0
-set_interval(3) {
+set_interval(1.5) {
 
   puts "update ##{count}"
 
-  # send my blockchain to peers
+  # connect to peers and update my blockchain
   $PEERS.each do |peer|
+    next if peer == $PORT
     response = Client.connect(peer, $PEERS, $BLOCKCHAIN)
     params = YAML.load(response)
     request_peers = params[:peers]
     request_blockchain = params[:blockchain]
 
-    update_peers(request_peers, $PEERS, $PORT)
+    $PEERS = update_peers(request_peers, $PEERS, $PORT)
     $BLOCKCHAIN = update_blockchain(request_blockchain, $BLOCKCHAIN)
 
     $BLOCKCHAIN.print_ledger
@@ -62,6 +60,8 @@ get '/test' do
 end
 
 post '/connect' do
+  request_peers = params[:peers]
+  $PEERS = update_peers(request_peers, $PEERS, $PORT)
   YAML.dump( peers: $PEERS, blockchain: $BLOCKCHAIN )
 end
 
