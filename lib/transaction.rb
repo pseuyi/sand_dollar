@@ -1,6 +1,11 @@
 require 'digest'
 require_relative 'pki'
 
+# from - pub_key of sender
+# to - pub_key of receiver
+# amount - $ being transferred
+# priv_key - private key of sender
+
 class Transaction
 
   attr_reader :from, :to, :amount
@@ -10,9 +15,10 @@ class Transaction
     @signature = PKI.sign(message, priv_key)
   end
 
-  def is_valid_signature?
+  def is_signed_correctly?
     return true if is_genesis_txn?
     #check signature
+    PKI.valid_signature(message, @signature, from)
   end
 
   def is_genesis_txn?
