@@ -18,6 +18,7 @@ PKEY = PKI.generate_key
 PUB_KEY = PKEY.public_key.to_s
 PRIV_KEY = PKEY.to_s
 
+
 # configuration
 configure :development do
   set :port, $PORT
@@ -48,6 +49,7 @@ set_interval(3) {
     update_peers(request_peers, $PEERS, $PORT)
     $BLOCKCHAIN = update_blockchain(request_blockchain, $BLOCKCHAIN)
 
+    $BLOCKCHAIN.print_ledger
     puts "connected to #{peer.to_s.blue}" unless peer == $PORT
   end
 
@@ -59,15 +61,6 @@ get '/test' do
 end
 
 post '/connect' do
-  #$PEERS << params[:peers]
-  # send my blockchain
-  # puts "#{params[:name]} connected! \npeers: #{params[:peers]} blockchain: #{params[:blockchain]}".green
-
-  # request_peers = JSON.parse(params[:peers])
-  # request_blockchain = JSON.parse(params[:blockchain])
-  # update_peers(request_peers)
-  # update_blockchain(request_blockchain)
-
   YAML.dump( peers: $PEERS, blockchain: $BLOCKCHAIN )
 end
 

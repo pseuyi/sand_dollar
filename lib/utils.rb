@@ -15,6 +15,7 @@ def update_peers(request_peers, peers, port)
 end
 
 def update_blockchain(request_blockchain, blockchain)
+  puts "updating blockchain"
   return blockchain unless request_blockchain.valid?
 
   if blockchain.nil? ||

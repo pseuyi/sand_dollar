@@ -38,6 +38,10 @@ class Block
     !!own_hash && txn.is_signed_correctly?
   end
 
+  def is_genesis_block?(block)
+    block.txn.is_genesis_txn?
+  end
+
   private
 
     def hash(content)
