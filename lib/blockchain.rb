@@ -14,7 +14,7 @@ class Blockchain
   end
 
   def valid?
-    @blocks.all? { |b| b.valid? }
+    @blocks.all? { |b| b.valid? } && balances_valid?
   end
 
   def add_block(txn)
@@ -44,5 +44,11 @@ class Blockchain
       puts "account balance: ".ljust(20).blue + "#{v}".red
       puts '*' * 30
     end
+  end
+
+  private
+
+  def balances_valid?
+    !calc_balances.any? { |_, value| value < 0 }
   end
 end
