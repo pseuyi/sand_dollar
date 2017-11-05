@@ -19,8 +19,12 @@ class Client
     end
   end
 
-  def self.send(port, to, amount)
-    Faraday.post("#{URL}:#{port}/send", to: to, amount: amount).body
+  def self.send(to, from, amount)
+    Faraday.post("#{URL}:#{to}/send", from: from, amount: amount).body
+  end
+
+  def self.get_key(port)
+    Faraday.get("#{URL}:#{port}/key").body
   end
 end
 

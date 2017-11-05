@@ -13,6 +13,11 @@ $PEERS << $PEER_PORT if $PEER_PORT
 # global blockchain
 $BLOCKCHAIN = nil
 
+# generate my public and private key
+PKEY = PKI.generate_key
+PUB_KEY = PKEY.public_key.to_s
+PRIV_KEY = PKEY.to_s
+
 # configuration
 configure :development do
   set :port, $PORT
@@ -20,13 +25,11 @@ configure :development do
   puts "sand dollar server up and running on port #{settings.port}".blue.on_green.blink
 end
 
-# generate my public and private key
-pkey = PKI.generate_key
-my_pub_key = pkey.public_key.to_s
-my_priv_key = pkey.to_s
 
 if $PEERS.empty?
-  $BLOCKCHAIN = Blockchain.new(my_pub_key, my_priv_key)
+  $BLOCKCHAIN = Blockchain.new(PUB_KEY, PRIV_KEY)
+  # add first block to blockchain
+
 end
 
 # primitive logging
@@ -34,7 +37,7 @@ count = 0
 set_interval(3) {
 
   puts "update ##{count}"
-  
+
   # send my blockchain to peers
   $PEERS.each do |peer|
     response = Client.connect(peer, $PEERS, $BLOCKCHAIN)
@@ -69,7 +72,12 @@ post '/connect' do
 end
 
 post '/send' do
+  from = params[:from]
+  response = Client.get_key(port)
+end
 
+get '/key' do
+  PUB_KEY
 end
 
 not_found do
