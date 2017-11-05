@@ -11,15 +11,14 @@ end
 
 
 def update_peers(request_peers, peers, port)
-  (peers + request_peers).uniq.reject { |peer| peer == port }
+  (peers + request_peers).uniq
 end
 
 def update_blockchain(request_blockchain, blockchain)
-  puts "updating blockchain"
   return blockchain unless request_blockchain.valid?
 
   if blockchain.nil? ||
-    request_blockchain.length > blockchain.length
+    request_blockchain.length > blockchain.length || !blockchain.valid?
 
     return request_blockchain
   end
